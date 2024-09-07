@@ -11,12 +11,12 @@ This project tracks and compares carbon emissions estimates from two different m
 
 ## Requirements
 
-- **codecarbon
-- **psutil
-- **matplotlib
-- **pandas
+- codecarbon
+- psutil
+- matplotlib
+- pandas
 
 ## Usage
 
-- **run the files named train.py for psutil and track_emission_codecarbon.py for codecarbon 
-- **run the files(for bargraph) named plot.py for psutil and plot_emission_data.py for codecarbon
+- Run the files named train.py for psutil and track_emission_codecarbon.py for codecarbon 
+- Run the files(for bargraph) named plot.py for psutil and plot_emission_data.py for codecarbon
