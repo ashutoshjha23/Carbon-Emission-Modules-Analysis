@@ -9,15 +9,14 @@ This project tracks and compares carbon emissions estimates from two different m
 - **Data Analysis:** Provides insights into the accuracy and reliability of different emission estimation methods.
 
 
-##Requirements
+## Requirements
 
-codecarbon
-psutil
-matplotlib
-em
+- **codecarbon
+- **psutil
+- **matplotlib
+- **pandas
 
-##usage
+## Usage
 
-run the files named train.py for psutil and track_emission_codecarbon.py for codecarbon 
-
-run the files(for bargraph) named plot.py for psutil and plot_emission_data.py for codecarbon
+- **run the files named train.py for psutil and track_emission_codecarbon.py for codecarbon 
+- **run the files(for bargraph) named plot.py for psutil and plot_emission_data.py for codecarbon
