@@ -1,0 +1,15 @@
+{
+    "models": {
+        "BERT Fine-tune": 3.1,
+        "BERT Pretrain": 37.3,
+        "6B Transformer": 13812.4,
+        "Dense121": 0.02,
+        "Dense169": 0.03,
+        "Dense201": 0.04,
+        "ViT Tiny": 1.7,
+        "ViT Small": 2.2,
+        "ViT Base": 4.7,
+        "ViT Large": 93.3,
+        "ViT Huge": 237.6
+    }
+}
