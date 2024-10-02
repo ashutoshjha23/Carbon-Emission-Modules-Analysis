@@ -5,7 +5,7 @@ def load_model_data(filename):
         data = json.load(file)
     return data['models']
 
-carbon_intensity_gCO2_per_kWh = 90  
+carbon_intensity_gCO2_per_kWh = 0.9
 def calculate_carbon_emissions(models, carbon_intensity):
     emissions = {}
     for model, consumption in models.items():
