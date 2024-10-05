@@ -1,10 +1,12 @@
 import numpy as np
 import time
-from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
+from sklearn.svm import SVC
 from sklearn.cluster import KMeans
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.naive_bayes import GaussianNB
 from codecarbon import EmissionsTracker
 
 # List to store emissions data
@@ -26,13 +28,15 @@ def track_model_emissions(model_func, model_name, *args, **kwargs):
         "execution_time_s": execution_time
     })
 
+# Ensure a model runs for a minimum amount of time
 def run_for_min_time(model_func, min_time=10):
     start_time = time.time()
     model_func()  # Initial model run
 
     while time.time() - start_time < min_time:
-        model_func()
+        model_func()  # Re-run the model to meet the time constraint
 
+# Helper function for generating random datasets
 def generate_random_data(shape, integer=False, clusters=False):
     if clusters:
         return np.random.rand(*shape)
@@ -72,11 +76,53 @@ def decision_tree_model():
     model = DecisionTreeRegressor()
     model.fit(X, y)
 
+# 6. Support Vector Classifier (SVC)
+def svc_model():
+    X = generate_random_data((100, 20))
+    y = generate_random_data((100,), integer=True)
+    model = SVC(kernel='linear')
+    model.fit(X, y)
+
+# 7. Gradient Boosting Classifier
+def gradient_boosting_model():
+    X = generate_random_data((100, 20))
+    y = generate_random_data((100,), integer=True)
+    model = GradientBoostingClassifier(n_estimators=50)
+    model.fit(X, y)
+
+# 8. Ridge Regression (Linear Regression with L2 Regularization)
+def ridge_regression_model():
+    X = generate_random_data((100, 1))
+    y = 3 * X.squeeze() + np.random.randn(100)
+    model = Ridge(alpha=1.0)
+    model.fit(X, y)
+
+# 9. Gaussian Naive Bayes Classifier
+def naive_bayes_model():
+    X = generate_random_data((100, 20))
+    y = generate_random_data((100,), integer=True)
+    model = GaussianNB()
+    model.fit(X, y)
+
+# 10. AdaBoost Classifier
+def adaboost_model():
+    X = generate_random_data((100, 20))
+    y = generate_random_data((100,), integer=True)
+    model = AdaBoostClassifier(n_estimators=50)
+    model.fit(X, y)
+
+# Track emissions and execution time for each model
 track_model_emissions(lambda: run_for_min_time(linear_regression_model), "Linear Regression")
 track_model_emissions(lambda: run_for_min_time(random_forest_model), "Random Forest Classifier")
 track_model_emissions(lambda: run_for_min_time(kmeans_model), "K-Means Clustering")
 track_model_emissions(lambda: run_for_min_time(neural_network_model), "Neural Network Classifier")
 track_model_emissions(lambda: run_for_min_time(decision_tree_model), "Decision Tree Regressor")
+track_model_emissions(lambda: run_for_min_time(svc_model), "Support Vector Classifier (SVC)")
+track_model_emissions(lambda: run_for_min_time(gradient_boosting_model), "Gradient Boosting Classifier")
+track_model_emissions(lambda: run_for_min_time(ridge_regression_model), "Ridge Regression")
+track_model_emissions(lambda: run_for_min_time(naive_bayes_model), "Gaussian Naive Bayes Classifier")
+track_model_emissions(lambda: run_for_min_time(adaboost_model), "AdaBoost Classifier")
 
+# Output emissions and execution data
 for data in emissions_data:
     print(f"Model: {data['model']}, Emissions: {data['emissions_kg']:.4f} kg CO2, Execution Time: {data['execution_time_s']:.2f} seconds")
